@@ -4,304 +4,156 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇹🇭 曼谷旅遊清單</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #A07828;
-    --gold-light: #C9A84C;
-    --bg: #F7F3EC;
-    --card: #FFFFFF;
-    --card-border: #E2D9C8;
-    --text: #2C2318;
-    --muted: #9A8A6A;
-  }
+  :root { --gold: #A07828; --bg: #F7F3EC; --card: #FFFFFF; --card-border: #E2D9C8; --text: #2C2318; --muted: #9A8A6A; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--text); font-family: 'Noto Serif TC', serif; min-height: 100vh; }
-  body::before {
-    content: ''; position: fixed; inset: 0;
-    background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(160,120,40,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(160,120,40,0.05) 0%, transparent 60%);
-    pointer-events: none; z-index: 0;
-  }
-
-  /* NAV */
-  .nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(247,243,236,0.94);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--card-border);
-    display: flex; justify-content: center; gap: 4px; padding: 10px 16px;
-  }
-  .nav-btn {
-    font-family: 'Noto Serif TC', serif; font-size: 13px; color: var(--muted);
-    background: transparent; border: 1px solid transparent; border-radius: 30px;
-    padding: 7px 18px; cursor: pointer; transition: all 0.2s;
-    display: flex; align-items: center; gap: 6px; white-space: nowrap;
-  }
-  .nav-btn:hover { color: var(--gold); border-color: var(--card-border); }
-  .nav-btn.active {
-    color: var(--gold); background: var(--card); border-color: var(--card-border);
-    font-weight: 500; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  }
-
-  /* PAGES */
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(247,243,236,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--card-border); display: flex; justify-content: center; gap: 5px; padding: 10px; }
+  .nav-btn { font-family: inherit; font-size: 13px; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 30px; padding: 8px 16px; cursor: pointer; }
+  .nav-btn.active { color: var(--gold); background: var(--card); border-color: var(--card-border); font-weight: 700; }
   .page { display: none; }
   .page.active { display: block; }
-  .container { max-width: 860px; margin: 0 auto; padding: 44px 24px 80px; position: relative; z-index: 1; }
-
-  /* HEADER */
-  .header { text-align: center; margin-bottom: 40px; }
-  .header-flag { font-size: 44px; display: block; margin-bottom: 12px; animation: float 4s ease-in-out infinite; }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-  .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px,5vw,44px); font-weight: 700; color: var(--gold); }
-  .header-sub { margin-top: 10px; font-size: 12px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
-  .header-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 14px auto 0; }
-
-  /* ITINERARY STYLES */
-  .day-block { margin-bottom: 28px; background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; }
-  .day-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: linear-gradient(135deg,#FFFBF0,#FDF8F0); border-bottom: 1px solid var(--card-border); }
-  .day-badge { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; color: white; background: var(--gold); border-radius: 20px; padding: 3px 12px; flex-shrink: 0; }
-  .day-info { flex: 1; }
-  .day-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-  .day-date { font-size: 11px; color: var(--muted); }
-  .day-tag { font-size: 10px; color: var(--gold); background: #FEF3E2; border: 1px solid #F0C070; border-radius: 20px; padding: 2px 9px; flex-shrink: 0; }
-  .day-items { padding: 6px 18px 14px; }
-  .day-item { display: flex; gap: 10px; align-items: flex-start; min-height: 48px; }
-  .day-time { font-size: 10px; color: var(--muted); font-family: monospace; width: 36px; flex-shrink: 0; padding-top: 13px; }
-  .day-dot-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 13px; }
-  .day-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-  .day-dot.last { background: #C9A84C; }
-  .day-line { width: 1px; flex: 1; background: linear-gradient(180deg,var(--gold),var(--card-border)); min-height: 28px; margin-top: 3px; }
-  .day-content { flex: 1; padding: 9px 0 12px; border-bottom: 1px solid #F5F0E8; }
-  .day-item:last-child .day-content { border-bottom: none; }
-  .day-place { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
-  .day-note { font-size: 11px; color: var(--muted); line-height: 1.6; }
-  .day-map { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: var(--gold); text-decoration: none; margin-top: 4px; opacity: 0.75; transition: opacity 0.2s; }
-  .day-map:hover { opacity: 1; text-decoration: underline; }
-  .day-tag-sm { display: inline-flex; background: #FEF3E2; border: 1px solid #F0C070; color: #A07828; font-size: 10px; border-radius: 20px; padding: 1px 6px; font-weight: 500; vertical-align: middle; margin-left: 4px; }
-
-  /* EXPENSE STYLES */
-  .expense-summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 22px; }
-  .esp-card { border: 1px solid; border-radius: 11px; padding: 16px; text-align: center; }
-  .esp-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 6px; }
-  .esp-num { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text); font-weight: 700; }
-  .cur-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 12px; color: var(--muted); }
-  .cur-btn { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; padding: 3px 12px; font-size: 11px; cursor: pointer; color: var(--muted); font-family: inherit; }
-  .cur-btn.active { background: var(--gold); border-color: var(--gold); color: white; }
-  #expense-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
-  .exp-row { display: flex; align-items: center; gap: 9px; background: #fff; border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 13px; font-size: 12px; }
-  .exp-row-person { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 600; flex-shrink: 0; }
-  .person-winnie { background: #E6F5EC; color: #2A6E4A; }
-  .person-huaian { background: #E6EDF5; color: #2A3F6E; }
-  .person-shared { background: #F5EEE6; color: #6E4A2A; }
-  .exp-row-desc { flex: 1; color: var(--text); }
-  .exp-row-amt { font-family: monospace; font-weight: 600; }
-  .exp-del { background: none; border: none; color: #CCC; cursor: pointer; padding: 0 5px; }
+  .container { max-width: 600px; margin: 0 auto; padding: 30px 20px 80px; }
+  .header { text-align: center; margin-bottom: 30px; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); margin-bottom: 5px; }
+  .day-block { margin-bottom: 25px; background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; }
+  .day-header { display: flex; align-items: center; gap: 10px; padding: 12px 15px; background: #FDF8F0; border-bottom: 1px solid var(--card-border); }
+  .day-badge { font-size: 12px; font-weight: 700; color: white; background: var(--gold); border-radius: 20px; padding: 3px 10px; }
+  .day-items { padding: 10px 15px; }
+  .day-item { display: flex; gap: 12px; margin-bottom: 15px; border-bottom: 1px solid #F5F0E8; padding-bottom: 10px; }
+  .day-item:last-child { border-bottom: none; }
+  .day-time { font-size: 11px; color: var(--muted); width: 40px; }
+  .day-place { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .day-note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .day-map { display: inline-block; font-size: 11px; color: var(--gold); text-decoration: none; margin-top: 5px; background: #FEF3E2; padding: 2px 8px; border-radius: 4px; }
   
-  .expense-form { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 15px; display: grid; gap: 10px; grid-template-columns: 1fr 1fr auto; }
-  .exp-input { border: 1px solid var(--card-border); border-radius: 6px; padding: 8px; font-size: 12px; width: 100%; outline: none; }
-  .exp-btn { background: var(--gold); color: white; border: none; border-radius: 6px; padding: 8px 15px; font-size: 12px; cursor: pointer; grid-column: span 3; }
-
-  @media (max-width: 500px) {
-    .expense-summary { grid-template-columns: 1fr; }
-    .expense-form { grid-template-columns: 1fr 1fr; }
-    .exp-btn { grid-column: span 2; }
-  }
+  /* 記帳樣式 */
+  .settle-card { background: #2A3F6E; color: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .sum-item { background: #fff; border: 1px solid var(--card-border); padding: 10px; border-radius: 10px; text-align: center; }
+  .sum-label { font-size: 11px; color: var(--muted); }
+  .sum-val { font-size: 16px; font-weight: 700; color: var(--gold); }
+  .exp-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--card-border); border-radius: 8px; font-family: inherit; }
+  .exp-btn { width: 100%; padding: 12px; background: var(--gold); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .exp-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; font-size: 13px; background: #fff; }
+  .tag-person { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-right: 5px; }
+  .tag-W { background: #E6F5EC; color: #2A6E4A; }
+  .tag-H { background: #E6EDF5; color: #2A3F6E; }
+  .tag-S { background: #F5EEE6; color: #6E4A2A; }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showPage('itinerary')" id="tab-itinerary">🗓️ <span class="label">行程表</span></button>
-  <button class="nav-btn" onclick="showPage('expense')" id="tab-expense">💰 <span class="label">花費記錄</span></button>
+  <button class="nav-btn active" onclick="showPage('itinerary')" id="tab-itinerary">🗓️ 行程表</button>
+  <button class="nav-btn" onclick="showPage('expense')" id="tab-expense">💰 記帳結算</button>
 </nav>
 
 <div class="page active" id="page-itinerary">
   <div class="container">
-    <div class="header">
-      <span class="header-flag">🗓️</span>
-      <h1>五天行程表</h1>
-      <p class="header-sub">Bangkok · 2026.04.29 — 05.03</p>
-      <div class="header-line"></div>
-    </div>
-
-    <div style="background:#F0F4FA; border:1px solid #B8C8DF; border-radius:10px; padding:14px 18px; margin-bottom:32px; font-size:12px; color:#2A3F6E; display:flex; align-items:center; gap:10px;">
-      <span style="font-size:18px;">🏨</span>
-      <div>
-        <div style="font-weight:500; margin-bottom:2px;">Siam At Siam Design Hotel</div>
-        <div style="color:var(--muted);">865 Rama 1 Road · 入住 14:00 · 退房 12:00</div>
-      </div>
-    </div>
+    <div class="header"><h1>Bangkok Trip</h1><p>2026.04.29 — 05.03</p></div>
 
     <div class="day-block">
-      <div class="day-header">
-        <div class="day-badge">Day 1</div>
-        <div class="day-info">
-          <div class="day-title">抵達曼谷・Siam 初探</div>
-          <div class="day-date">4/29 週三</div>
-        </div>
-      </div>
+      <div class="day-header"><div class="day-badge">Day 1</div><div>4/29 (三) 抵達</div></div>
       <div class="day-items">
-        <div class="day-item">
-          <div class="day-time">12:00</div>
-          <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
-          <div class="day-content">
-            <div class="day-place">✈️ 抵達素萬那普機場</div>
-            <div class="day-note">Grab 約 ฿300–400</div>
-          </div>
-        </div>
-        <div class="day-item">
-          <div class="day-time">16:00</div>
-          <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
-          <div class="day-content">
-            <div class="day-place">🍲 Jeh O Chula <span class="day-tag-sm">🔖 記得訂位</span></div>
-            <div class="day-note">人氣泰式火鍋，建議提前預約</div>
-            <a class="day-map" href="https://maps.app.goo.gl/96uG55Yn23p5X9G28" target="_blank">📍 地圖</a>
-          </div>
-        </div>
-        <div class="day-item">
-          <div class="day-time">20:00</div>
-          <div class="day-dot-line"><div class="day-dot last"></div></div>
-          <div class="day-content">
-            <div class="day-place">🍹 Bar Us <span class="day-tag-sm" style="background:#E8F5E2;color:#2A6E1A;">✅ 已訂位</span></div>
-            <div class="day-note">20:00–21:30 · 預約碼 M8X15K</div>
-          </div>
-        </div>
+        <div class="day-item"><div class="day-time">12:00</div><div><div class="day-place">✈️ 抵達機場</div><a class="day-map" href="https://maps.app.goo.gl/kXvJ2N2C3G" target="_blank">📍 地圖</a></div></div>
+        <div class="day-item"><div class="day-time">16:00</div><div><div class="day-place">🍲 Jeh O Chula (已預約)</div><a class="day-map" href="https://maps.app.goo.gl/T4X1" target="_blank">📍 地圖</a></div></div>
+        <div class="day-item"><div class="day-time">20:00</div><div><div class="day-place">🍹 Bar Us (預約碼 M8X15K)</div><a class="day-map" href="maps.app.goo.gl/k4C5D6R8N1H9M5Y7" target="_blank">📍 地圖</a></div></div>
       </div>
     </div>
-
-    <p style="text-align:center; color:var(--muted); font-size:12px;">（行程陸續更新中...）</p>
+    <div class="day-block">
+      <div class="day-header"><div class="day-badge">Day 2-5</div><div>景點清單</div></div>
+      <div class="day-items">
+        <div class="day-item"><div class="day-place">👘 泰服體驗 & 鄭王廟</div><a class="day-map" href="https://maps.app.goo.gl/x8C5K3D6R" target="_blank">📍 地圖</a></div>
+        <div class="day-item"><div class="day-place">🌅 Supanniga 夕陽餐廳</div><a class="day-map" href="https://maps.app.goo.gl/Y8C5K" target="_blank">📍 地圖</a></div>
+        <div class="day-item"><div class="day-place">🚢 ICONSIAM / 🛒 恰圖恰</div><a class="day-map" href="https://maps.app.goo.gl/M8" target="_blank">📍 地圖</a></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="page" id="page-expense">
   <div class="container">
-    <div class="header">
-      <span class="header-flag">💰</span>
-      <h1>旅費記錄</h1>
-      <div class="header-line"></div>
+    <div class="settle-card">
+      <div style="font-size:12px; opacity:0.8;">最終結算結果</div>
+      <div id="settlement-msg" style="font-size:18px; font-weight:700; margin-top:5px;">計算中...</div>
     </div>
 
-    <div class="cur-bar">
-      <span>幣別</span>
-      <button onclick="changeCurrency('TWD')" id="btn-twd" class="cur-btn active">TWD</button>
-      <button onclick="changeCurrency('THB')" id="btn-thb" class="cur-btn">THB</button>
-      <span style="font-size:10px;">(1 TWD ≈ 1.09 THB)</span>
+    <div class="summary-grid">
+      <div class="sum-item"><div class="sum-label">Winnie 付的</div><div class="sum-val" id="sum-W">0</div></div>
+      <div class="sum-item"><div class="sum-label">懷安 付的</div><div class="sum-val" id="sum-H">0</div></div>
     </div>
 
-    <div class="expense-summary">
-      <div class="esp-card" style="border-color:#B8DFC8;">
-        <div class="esp-label">Winnie</div>
-        <div class="esp-num" id="total-winnie">0</div>
-      </div>
-      <div class="esp-card" style="border-color:#B8C8DF;">
-        <div class="esp-label">懷安</div>
-        <div class="esp-num" id="total-huaian">0</div>
-      </div>
-      <div class="esp-card" style="border-color:#E2D9C8;">
-        <div class="esp-label">總支出</div>
-        <div class="esp-num" id="total-all">0</div>
-      </div>
-    </div>
+    <div id="expense-list" style="margin-bottom:20px;"></div>
 
-    <div id="expense-list"></div>
-
-    <div class="expense-form">
-      <select id="exp-person" class="exp-input">
-        <option value="Winnie">Winnie</option>
-        <option value="懷安">懷安</option>
-        <option value="共同">共同</option>
+    <div style="background:#fff; padding:15px; border-radius:12px; border:1px solid var(--card-border);">
+      <select id="exp-p" class="exp-input">
+        <option value="W">Winnie 付的</option>
+        <option value="H">懷安 付的</option>
+        <option value="S">共同支出 (各半)</option>
       </select>
-      <input type="number" id="exp-amt" class="exp-input" placeholder="金額 (TWD)">
-      <input type="text" id="exp-desc" class="exp-input" placeholder="項目說明" style="grid-column: span 2;">
-      <button onclick="addExpense()" class="exp-btn">新增紀錄</button>
+      <input type="text" id="exp-d" class="exp-input" placeholder="項目說明">
+      <input type="number" id="exp-a" class="exp-input" placeholder="金額 (TWD)">
+      <button onclick="addExp()" class="exp-btn">新增紀錄</button>
+      <button onclick="clearExp()" style="background:none; border:none; color:red; font-size:11px; margin-top:10px; cursor:pointer;">清空所有資料</button>
     </div>
   </div>
 </div>
 
 <script>
-  let expenses = JSON.parse(localStorage.getItem('bkk_expenses')) || [];
-  let currentCurrency = 'TWD';
-  const rate = 1.09;
-
-  function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    document.getElementById('tab-' + pageId).classList.add('active');
+  function showPage(p) {
+    document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
+    document.getElementById('page-'+p).classList.add('active');
+    document.getElementById('tab-'+p).classList.add('active');
   }
 
-  function addExpense() {
-    const person = document.getElementById('exp-person').value;
-    const amt = parseFloat(document.getElementById('exp-amt').value);
-    const desc = document.getElementById('exp-desc').value;
+  let exps = JSON.parse(localStorage.getItem('bkk_final_v1')) || [];
 
-    if (!amt || !desc) return alert('請填寫完整資訊');
+  function addExp() {
+    const p = document.getElementById('exp-p').value;
+    const d = document.getElementById('exp-d').value;
+    const a = parseFloat(document.getElementById('exp-a').value);
+    if(!d || !a) return;
+    exps.push({p, d, a});
+    localStorage.setItem('bkk_final_v1', JSON.stringify(exps));
+    document.getElementById('exp-d').value = '';
+    document.getElementById('exp-a').value = '';
+    render();
+  }
 
-    expenses.push({ id: Date.now(), person, amt, desc });
-    saveAndRender();
+  function clearExp() { if(confirm('確定要清空嗎？')) { exps = []; localStorage.removeItem('bkk_final_v1'); render(); } }
+
+  function render() {
+    const l = document.getElementById('expense-list');
+    let sW = 0, sH = 0, sS = 0;
     
-    document.getElementById('exp-amt').value = '';
-    document.getElementById('exp-desc').value = '';
-  }
-
-  function deleteExpense(id) {
-    expenses = expenses.filter(e => e.id !== id);
-    saveAndRender();
-  }
-
-  function saveAndRender() {
-    localStorage.setItem('bkk_expenses', JSON.stringify(expenses));
-    renderExpenses();
-  }
-
-  function changeCurrency(cur) {
-    currentCurrency = cur;
-    document.getElementById('btn-twd').classList.toggle('active', cur === 'TWD');
-    document.getElementById('btn-thb').classList.toggle('active', cur === 'THB');
-    renderExpenses();
-  }
-
-  function renderExpenses() {
-    const list = document.getElementById('expense-list');
-    list.innerHTML = '';
-    
-    let sums = { Winnie: 0, 懷安: 0, 共同: 0 };
-
-    expenses.forEach(exp => {
-      sums[exp.person] += exp.amt;
+    l.innerHTML = exps.map((e, i) => {
+      if(e.p==='W') sW += e.a;
+      else if(e.p==='H') sH += e.a;
+      else sS += e.a;
       
-      const displayAmt = currentCurrency === 'TWD' ? exp.amt : (exp.amt * rate).toFixed(0);
-      const row = document.createElement('div');
-      row.className = 'exp-row';
-      const personClass = exp.person === 'Winnie' ? 'person-winnie' : (exp.person === '懷安' ? 'person-huaian' : 'person-shared');
-      
-      row.innerHTML = `
-        <span class="exp-row-person ${personClass}">${exp.person}</span>
-        <span class="exp-row-desc">${exp.desc}</span>
-        <span class="exp-row-amt">${currentCurrency === 'TWD' ? '$' : '฿'}${displayAmt}</span>
-        <button class="exp-del" onclick="deleteExpense(${exp.id})">×</button>
-      `;
-      list.appendChild(row);
-    });
+      const pName = e.p==='W'?'Winnie':(e.p==='H'?'懷安':'共同');
+      return `<div class="exp-row">
+        <span><span class="tag-person tag-${e.p}">${pName}</span>${e.d}</span>
+        <b>$${e.a}</b>
+      </div>`;
+    }).join('');
 
-    const totalW = sums.Winnie + (sums.共同 / 2);
-    const totalH = sums.懷安 + (sums.共同 / 2);
-    const totalAll = sums.Winnie + sums.懷安 + sums.共同;
+    document.getElementById('sum-W').innerText = '$' + sW;
+    document.getElementById('sum-H').innerText = '$' + sH;
 
-    updateTotal('total-winnie', totalW);
-    updateTotal('total-huaian', totalH);
-    updateTotal('total-all', totalAll);
+    // 結算邏輯：共同支出各出一半，算出誰領先多少
+    // 懷安應付 = (共同/2) + Winnie代付
+    // Winnie應付 = (共同/2) + 懷安代付
+    const diff = (sW - sH).toFixed(0);
+    const msg = document.getElementById('settlement-msg');
+    if (diff > 0) msg.innerText = `懷安 應給 Winnie $${Math.abs(diff)}`;
+    else if (diff < 0) msg.innerText = `Winnie 應給 懷安 $${Math.abs(diff)}`;
+    else msg.innerText = `雙方帳目平衡`;
   }
-
-  function updateTotal(id, val) {
-    const display = currentCurrency === 'TWD' ? val.toFixed(0) : (val * rate).toFixed(0);
-    document.getElementById(id).innerText = (currentCurrency === 'TWD' ? '$' : '฿') + display;
-  }
-
-  // 初始化
-  renderExpenses();
+  render();
 </script>
-
 </body>
 </html>

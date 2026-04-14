@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇹🇭 曼谷旅遊清單</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #A07828;
+    --gold-light: #C9A84C;
+    --bg: #F7F3EC;
+    --card: #FFFFFF;
+    --card-border: #E2D9C8;
+    --text: #2C2318;
+    --muted: #9A8A6A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Serif TC', serif; min-height: 100vh; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(160,120,40,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(160,120,40,0.05) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,243,236,0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+    display: flex; justify-content: center; gap: 4px; padding: 10px 16px;
+  }
+  .nav-btn {
+    font-family: 'Noto Serif TC', serif; font-size: 13px; color: var(--muted);
+    background: transparent; border: 1px solid transparent; border-radius: 30px;
+    padding: 7px 18px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--gold); border-color: var(--card-border); }
+  .nav-btn.active {
+    color: var(--gold); background: var(--card); border-color: var(--card-border);
+    font-weight: 500; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+  .container { max-width: 860px; margin: 0 auto; padding: 44px 24px 80px; position: relative; z-index: 1; }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 40px; }
+  .header-flag { font-size: 44px; display: block; margin-bottom: 12px; animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px,5vw,44px); font-weight: 700; color: var(--gold); }
+  .header-sub { margin-top: 10px; font-size: 12px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+  .header-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 14px auto 0; }
+
+  /* ITINERARY STYLES */
+  .day-block { margin-bottom: 28px; background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; }
+  .day-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: linear-gradient(135deg,#FFFBF0,#FDF8F0); border-bottom: 1px solid var(--card-border); }
+  .day-badge { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; color: white; background: var(--gold); border-radius: 20px; padding: 3px 12px; flex-shrink: 0; }
+  .day-info { flex: 1; }
+  .day-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .day-date { font-size: 11px; color: var(--muted); }
+  .day-tag { font-size: 10px; color: var(--gold); background: #FEF3E2; border: 1px solid #F0C070; border-radius: 20px; padding: 2px 9px; flex-shrink: 0; }
+  .day-items { padding: 6px 18px 14px; }
+  .day-item { display: flex; gap: 10px; align-items: flex-start; min-height: 48px; }
+  .day-time { font-size: 10px; color: var(--muted); font-family: monospace; width: 36px; flex-shrink: 0; padding-top: 13px; }
+  .day-dot-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 13px; }
+  .day-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .day-dot.last { background: #C9A84C; }
+  .day-line { width: 1px; flex: 1; background: linear-gradient(180deg,var(--gold),var(--card-border)); min-height: 28px; margin-top: 3px; }
+  .day-content { flex: 1; padding: 9px 0 12px; border-bottom: 1px solid #F5F0E8; }
+  .day-item:last-child .day-content { border-bottom: none; }
+  .day-place { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
+  .day-note { font-size: 11px; color: var(--muted); line-height: 1.6; }
+  .day-map { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: var(--gold); text-decoration: none; margin-top: 4px; opacity: 0.75; transition: opacity 0.2s; }
+  .day-map:hover { opacity: 1; text-decoration: underline; }
+  .day-tag-sm { display: inline-flex; background: #FEF3E2; border: 1px solid #F0C070; color: #A07828; font-size: 10px; border-radius: 20px; padding: 1px 6px; font-weight: 500; vertical-align: middle; margin-left: 4px; }
+
+  /* EXPENSE STYLES */
+  .expense-summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+  .esp-card { border: 1px solid; border-radius: 11px; padding: 16px; text-align: center; }
+  .esp-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .esp-num { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text); font-weight: 700; }
+  .cur-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 12px; color: var(--muted); }
+  .cur-btn { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; padding: 3px 12px; font-size: 11px; cursor: pointer; color: var(--muted); font-family: inherit; }
+  .cur-btn.active { background: var(--gold); border-color: var(--gold); color: white; }
+  #expense-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+  .exp-row { display: flex; align-items: center; gap: 9px; background: #fff; border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 13px; font-size: 12px; }
+  .exp-row-person { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 600; flex-shrink: 0; }
+  .person-winnie { background: #E6F5EC; color: #2A6E4A; }
+  .person-huaian { background: #E6EDF5; color: #2A3F6E; }
+  .person-shared { background: #F5EEE6; color: #6E4A2A; }
+  .exp-row-desc { flex: 1; color: var(--text); }
+  .exp-row-amt { font-family: monospace; font-weight: 600; }
+  .exp-del { background: none; border: none; color: #CCC; cursor: pointer; padding: 0 5px; }
+  
+  .expense-form { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 15px; display: grid; gap: 10px; grid-template-columns: 1fr 1fr auto; }
+  .exp-input { border: 1px solid var(--card-border); border-radius: 6px; padding: 8px; font-size: 12px; width: 100%; outline: none; }
+  .exp-btn { background: var(--gold); color: white; border: none; border-radius: 6px; padding: 8px 15px; font-size: 12px; cursor: pointer; grid-column: span 3; }
+
+  @media (max-width: 500px) {
+    .expense-summary { grid-template-columns: 1fr; }
+    .expense-form { grid-template-columns: 1fr 1fr; }
+    .exp-btn { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showPage('itinerary')" id="tab-itinerary">🗓️ <span class="label">行程表</span></button>
+  <button class="nav-btn" onclick="showPage('expense')" id="tab-expense">💰 <span class="label">花費記錄</span></button>
+</nav>
+
+<div class="page active" id="page-itinerary">
+  <div class="container">
+    <div class="header">
+      <span class="header-flag">🗓️</span>
+      <h1>五天行程表</h1>
+      <p class="header-sub">Bangkok · 2026.04.29 — 05.03</p>
+      <div class="header-line"></div>
+    </div>
+
+    <div style="background:#F0F4FA; border:1px solid #B8C8DF; border-radius:10px; padding:14px 18px; margin-bottom:32px; font-size:12px; color:#2A3F6E; display:flex; align-items:center; gap:10px;">
+      <span style="font-size:18px;">🏨</span>
+      <div>
+        <div style="font-weight:500; margin-bottom:2px;">Siam At Siam Design Hotel</div>
+        <div style="color:var(--muted);">865 Rama 1 Road · 入住 14:00 · 退房 12:00</div>
+      </div>
+    </div>
+
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-badge">Day 1</div>
+        <div class="day-info">
+          <div class="day-title">抵達曼谷・Siam 初探</div>
+          <div class="day-date">4/29 週三</div>
+        </div>
+      </div>
+      <div class="day-items">
+        <div class="day-item">
+          <div class="day-time">12:00</div>
+          <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
+          <div class="day-content">
+            <div class="day-place">✈️ 抵達素萬那普機場</div>
+            <div class="day-note">Grab 約 ฿300–400</div>
+          </div>
+        </div>
+        <div class="day-item">
+          <div class="day-time">16:00</div>
+          <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
+          <div class="day-content">
+            <div class="day-place">🍲 Jeh O Chula <span class="day-tag-sm">🔖 記得訂位</span></div>
+            <div class="day-note">人氣泰式火鍋，建議提前預約</div>
+            <a class="day-map" href="https://maps.app.goo.gl/96uG55Yn23p5X9G28" target="_blank">📍 地圖</a>
+          </div>
+        </div>
+        <div class="day-item">
+          <div class="day-time">20:00</div>
+          <div class="day-dot-line"><div class="day-dot last"></div></div>
+          <div class="day-content">
+            <div class="day-place">🍹 Bar Us <span class="day-tag-sm" style="background:#E8F5E2;color:#2A6E1A;">✅ 已訂位</span></div>
+            <div class="day-note">20:00–21:30 · 預約碼 M8X15K</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center; color:var(--muted); font-size:12px;">（行程陸續更新中...）</p>
+  </div>
+</div>
+
+<div class="page" id="page-expense">
+  <div class="container">
+    <div class="header">
+      <span class="header-flag">💰</span>
+      <h1>旅費記錄</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <div class="cur-bar">
+      <span>幣別</span>
+      <button onclick="changeCurrency('TWD')" id="btn-twd" class="cur-btn active">TWD</button>
+      <button onclick="changeCurrency('THB')" id="btn-thb" class="cur-btn">THB</button>
+      <span style="font-size:10px;">(1 TWD ≈ 1.09 THB)</span>
+    </div>
+
+    <div class="expense-summary">
+      <div class="esp-card" style="border-color:#B8DFC8;">
+        <div class="esp-label">Winnie</div>
+        <div class="esp-num" id="total-winnie">0</div>
+      </div>
+      <div class="esp-card" style="border-color:#B8C8DF;">
+        <div class="esp-label">懷安</div>
+        <div class="esp-num" id="total-huaian">0</div>
+      </div>
+      <div class="esp-card" style="border-color:#E2D9C8;">
+        <div class="esp-label">總支出</div>
+        <div class="esp-num" id="total-all">0</div>
+      </div>
+    </div>
+
+    <div id="expense-list"></div>
+
+    <div class="expense-form">
+      <select id="exp-person" class="exp-input">
+        <option value="Winnie">Winnie</option>
+        <option value="懷安">懷安</option>
+        <option value="共同">共同</option>
+      </select>
+      <input type="number" id="exp-amt" class="exp-input" placeholder="金額 (TWD)">
+      <input type="text" id="exp-desc" class="exp-input" placeholder="項目說明" style="grid-column: span 2;">
+      <button onclick="addExpense()" class="exp-btn">新增紀錄</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let expenses = JSON.parse(localStorage.getItem('bkk_expenses')) || [];
+  let currentCurrency = 'TWD';
+  const rate = 1.09;
+
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.getElementById('tab-' + pageId).classList.add('active');
+  }
+
+  function addExpense() {
+    const person = document.getElementById('exp-person').value;
+    const amt = parseFloat(document.getElementById('exp-amt').value);
+    const desc = document.getElementById('exp-desc').value;
+
+    if (!amt || !desc) return alert('請填寫完整資訊');
+
+    expenses.push({ id: Date.now(), person, amt, desc });
+    saveAndRender();
+    
+    document.getElementById('exp-amt').value = '';
+    document.getElementById('exp-desc').value = '';
+  }
+
+  function deleteExpense(id) {
+    expenses = expenses.filter(e => e.id !== id);
+    saveAndRender();
+  }
+
+  function saveAndRender() {
+    localStorage.setItem('bkk_expenses', JSON.stringify(expenses));
+    renderExpenses();
+  }
+
+  function changeCurrency(cur) {
+    currentCurrency = cur;
+    document.getElementById('btn-twd').classList.toggle('active', cur === 'TWD');
+    document.getElementById('btn-thb').classList.toggle('active', cur === 'THB');
+    renderExpenses();
+  }
+
+  function renderExpenses() {
+    const list = document.getElementById('expense-list');
+    list.innerHTML = '';
+    
+    let sums = { Winnie: 0, 懷安: 0, 共同: 0 };
+
+    expenses.forEach(exp => {
+      sums[exp.person] += exp.amt;
+      
+      const displayAmt = currentCurrency === 'TWD' ? exp.amt : (exp.amt * rate).toFixed(0);
+      const row = document.createElement('div');
+      row.className = 'exp-row';
+      const personClass = exp.person === 'Winnie' ? 'person-winnie' : (exp.person === '懷安' ? 'person-huaian' : 'person-shared');
+      
+      row.innerHTML = `
+        <span class="exp-row-person ${personClass}">${exp.person}</span>
+        <span class="exp-row-desc">${exp.desc}</span>
+        <span class="exp-row-amt">${currentCurrency === 'TWD' ? '$' : '฿'}${displayAmt}</span>
+        <button class="exp-del" onclick="deleteExpense(${exp.id})">×</button>
+      `;
+      list.appendChild(row);
+    });
+
+    const totalW = sums.Winnie + (sums.共同 / 2);
+    const totalH = sums.懷安 + (sums.共同 / 2);
+    const totalAll = sums.Winnie + sums.懷安 + sums.共同;
+
+    updateTotal('total-winnie', totalW);
+    updateTotal('total-huaian', totalH);
+    updateTotal('total-all', totalAll);
+  }
+
+  function updateTotal(id, val) {
+    const display = currentCurrency === 'TWD' ? val.toFixed(0) : (val * rate).toFixed(0);
+    document.getElementById(id).innerText = (currentCurrency === 'TWD' ? '$' : '฿') + display;
+  }
+
+  // 初始化
+  renderExpenses();
+</script>
+
+</body>
+</html>

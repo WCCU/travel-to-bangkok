@@ -214,6 +214,8 @@
 <nav class="nav">
   <button class="nav-btn active" onclick="showPage('itinerary')" id="tab-itinerary">🗓️ <span class="label">行程表</span></button>
   <button class="nav-btn" onclick="showPage('expense')" id="tab-expense">💰 <span class="label">花費記錄</span></button>
+  <button class="nav-btn" onclick="showPage('notes')" id="tab-notes">📌 <span class="label">備注事項</span></button>
+  <button class="nav-btn" onclick="showPage('packing')" id="tab-packing">🧳 <span class="label">行李清單</span></button>
 </nav>
 
 <!-- ══ PAGE: 行程表 ══ -->
@@ -224,6 +226,21 @@
     <h1>五天行程表</h1>
     <p class="header-sub">Bangkok · 2026.04.29 — 05.03</p>
     <div class="header-line"></div>
+  </div>
+
+  <!-- TDAC 提醒 -->
+  <div style="background:#FEF3E2; border:1px solid #F0C070; border-left:4px solid #E07828; border-radius:10px; padding:16px 20px; margin-bottom:20px;">
+    <div style="font-family:'Playfair Display',serif; font-size:14px; color:#A07828; font-style:italic; margin-bottom:12px;">⚠️ 出發前必做・TDAC 泰國數位入境卡</div>
+    <div style="font-size:12px; color:var(--text); line-height:1.8; margin-bottom:12px;">
+      所有旅客須在<strong>抵達泰國前 72 小時內</strong>自行上網填寫 TDAC 數位入境卡，填寫完成後會收到 QR Code，<strong>過海關時連同護照一起出示</strong>給官員掃描。
+    </div>
+    <div style="font-size:11px; color:var(--muted); margin-bottom:12px;">📋 需填寫：航班資訊・住宿地址・個人資料</div>
+    <a href="https://tdac.immigration.go.th/arrival-card/#/home" target="_blank"
+      style="display:inline-flex; align-items:center; gap:6px; background:#A07828; color:white; text-decoration:none; font-size:12px; padding:8px 16px; border-radius:20px; font-family:'Noto Serif TC',serif; transition:opacity 0.2s;"
+      onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+      🔗 前往填寫 TDAC 入境卡
+    </a>
+    <div style="margin-top:10px; font-size:11px; color:var(--muted);">住宿地址：865 Rama 1 Road, Wangmai, Pathumwan, Bangkok 10330</div>
   </div>
 
   <!-- 住宿提示 -->
@@ -343,6 +360,15 @@
           <div class="day-place">🍚 K. Panich Sticky Rice <span class="day-tag-sm">午餐・米其林</span></div>
           <div class="day-note">1932 年老店・米其林推薦芒果糯米飯，Tha Tien 碼頭附近步行可達</div>
           <a class="day-map" href="https://www.google.com/maps/search/K.Panich+Sticky+Rice+Bangkok" target="_blank">📍 地圖</a>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">12:45</div>
+        <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
+        <div class="day-content">
+          <div class="day-place">🥤 Namtaohuu Pu Pla (Pratu Phee) <span class="day-tag-sm">山竹豆腐花</span></div>
+          <div class="day-note">步行幾分鐘・古城區在地老店，配完糯米飯再來一碗超順</div>
+          <a class="day-map" href="https://www.google.com/maps/search/Namtaohuu+Pu+Pla+Bangkok" target="_blank">📍 地圖</a>
         </div>
       </div>
       <div class="day-item">
@@ -531,25 +557,25 @@
         <div class="day-time">13:00</div>
         <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
         <div class="day-content">
-          <div class="day-place">🌿 彈性活動・跟著泰國姊姊走</div>
-          <div class="day-note">下午由泰國姊姊帶路，行程保持彈性・可能繼續逛市集、附近喝咖啡、或去當地人才知道的景點 ✨</div>
+          <div class="day-place">☕ Dubua Cafe</div>
+          <div class="day-note">水上市場附近・逛完市場喝杯咖啡休息一下</div>
+          <a class="day-map" href="https://www.google.com/maps/search/Dubua+Cafe+Bangkok" target="_blank">📍 地圖</a>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">15:00</div>
+        <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
+        <div class="day-content">
+          <div class="day-place">🌿 跟著泰國姊姊彈性走</div>
+          <div class="day-note">由泰國姊姊帶路，去當地人才知道的地方 ✨</div>
         </div>
       </div>
       <div class="day-item">
         <div class="day-time">19:00</div>
-        <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
-        <div class="day-content">
-          <div class="day-place">🍽️ 晚餐・彈性安排</div>
-          <div class="day-note">跟著泰國姊姊選店，或回市區吃 Gedhawa / SOURI 等候補選項</div>
-        </div>
-      </div>
-      <div class="day-item">
-        <div class="day-time">21:00</div>
         <div class="day-dot-line"><div class="day-dot last"></div></div>
         <div class="day-content">
-          <div class="day-place">🧁 SOURI Banthat Thong <span class="day-tag-sm">宵夜甜點・彈性</span></div>
-          <div class="day-note">評分 4.9 的超人氣點心，回程途中可順路</div>
-          <a class="day-map" href="https://www.google.com/maps/search/SOURI+Banthat+Thong+Bangkok" target="_blank">📍 地圖</a>
+          <div class="day-place">🍽️ 晚餐・彈性安排</div>
+          <div class="day-note">跟著泰國姊姊選店</div>
         </div>
       </div>
     </div>
@@ -560,53 +586,59 @@
     <div class="day-header">
       <div class="day-badge">Day 5</div>
       <div class="day-info">
-        <div class="day-title">最後早晨・返台</div>
+        <div class="day-title">Pratunam 水門市集・返台</div>
         <div class="day-date">5/3 週日</div>
       </div>
       <div class="day-tag">半天</div>
     </div>
     <div class="day-items">
       <div class="day-item">
+        <div class="day-time">一早</div>
+        <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
+        <div class="day-content">
+          <div class="day-place">🏨 退房 Check-out・行李寄放飯店</div>
+          <div class="day-note">退房時間 12:00 前・請飯店代為保管行李，輕裝出發</div>
+        </div>
+      </div>
+      <div class="day-item">
         <div class="day-time">09:00</div>
         <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
         <div class="day-content">
-          <div class="day-place">🥐 Landhaus Bakery <span class="day-tag-sm">早餐</span></div>
-          <div class="day-note">Central World 內，悠閒吃最後一頓早餐</div>
-          <a class="day-map" href="https://www.google.com/maps/search/Landhaus+Bakery+Bangkok+Central+World" target="_blank">📍 地圖</a>
+          <div class="day-place">🛍️ Pratunam Market 水門市集</div>
+          <div class="day-note">平價批發市場・衣服、飾品、包包超便宜，最後採購機會！帶現金！</div>
+          <a class="day-map" href="https://www.google.com/maps/search/Pratunam+Market+Bangkok" target="_blank">📍 地圖</a>
         </div>
       </div>
       <div class="day-item">
-        <div class="day-time">10:00</div>
+        <div class="day-time">11:00</div>
         <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
         <div class="day-content">
-          <div class="day-place">🍵 Karun Thai Tea <span class="day-tag-sm">伴手禮</span></div>
-          <div class="day-note">Central World 內・買泰國茶葉當伴手禮</div>
-          <a class="day-map" href="https://www.google.com/maps/search/Karun+Thai+Tea+Central+World+Bangkok" target="_blank">📍 地圖</a>
+          <div class="day-place">🌿 自由時間</div>
+          <div class="day-note">隨意逛 / 補買東西 / 吃個午餐</div>
         </div>
       </div>
       <div class="day-item">
-        <div class="day-time">11:30</div>
+        <div class="day-time">14:00</div>
         <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
         <div class="day-content">
-          <div class="day-place">🏨 退房 Check-out</div>
-          <div class="day-note">退房時間 12:00，可請飯店寄放行李</div>
+          <div class="day-place">🏨 回飯店取行李</div>
+          <div class="day-note">取行李後整理一下，準備出發</div>
         </div>
       </div>
       <div class="day-item">
-        <div class="day-time">12:30</div>
+        <div class="day-time">14:30</div>
         <div class="day-dot-line"><div class="day-dot"></div><div class="day-line"></div></div>
         <div class="day-content">
-          <div class="day-place">🍜 Thipsamai Pad Thai <span class="day-tag-sm">午餐</span></div>
-          <div class="day-note">鬼門炒河粉，離機場前最後一餐 ฿200–400</div>
-          <a class="day-map" href="https://www.google.com/maps/search/Thipsamai+Pad+Thai+Bangkok" target="_blank">📍 地圖</a>
+          <div class="day-place">🚕 Grab 前往素萬那普機場</div>
+          <div class="day-note">約 40 分鐘・17:50 班機建議 15:00 前到機場</div>
         </div>
       </div>
       <div class="day-item">
-        <div class="day-time">13:30</div>
+        <div class="day-time">17:50</div>
         <div class="day-dot-line"><div class="day-dot last"></div></div>
         <div class="day-content">
-          <div class="day-place">✈️ 出發前往素萬那普機場</div>
-          <div class="day-note">Grab 約 40 分鐘・15:50 JX746 返台・建議 13:00–13:30 出發</div>
+          <div class="day-place">✈️ JX746 起飛・返台</div>
+          <div class="day-note">曼谷 17:50 → 桃園 22:40・掰掰曼谷 🇹🇭</div>
         </div>
       </div>
     </div>
@@ -785,14 +817,6 @@
 </style>
 
 <script>
-  function showPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
-    document.getElementById('tab-' + name).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
   const TWD_TO_THB = 1.09;
   let displayCurrency = 'TWD';
   let expenses = [];
@@ -936,6 +960,267 @@
   }
 
   render();
+
+  // ── showPage ──
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Packing checklist ──
+  const packingState = JSON.parse(localStorage.getItem('bkk_packing') || '{}');
+  function toggleCheck(id) {
+    packingState[id] = !packingState[id];
+    localStorage.setItem('bkk_packing', JSON.stringify(packingState));
+    const el = document.getElementById('chk-' + id);
+    if (el) {
+      el.classList.toggle('checked', packingState[id]);
+      el.textContent = packingState[id] ? '✅' : '☐';
+    }
+  }
+  function initChecks() {
+    document.querySelectorAll('.chk').forEach(el => {
+      const id = el.id.replace('chk-', '');
+      el.classList.toggle('checked', !!packingState[id]);
+      el.textContent = packingState[id] ? '✅' : '☐';
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initChecks);
+  setTimeout(initChecks, 100);
+</script>
+
+<!-- ══ PAGE: 備注事項 ══ -->
+<div class="page" id="page-notes">
+<div class="container">
+  <div class="header">
+    <span class="header-flag">📌</span>
+    <h1>備注事項</h1>
+    <p class="header-sub">交通攻略・小費・保險</p>
+    <div class="header-line"></div>
+  </div>
+
+  <!-- 購買旅遊保險 -->
+  <div style="background:#FEF3E2; border:1px solid #F0C070; border-left:4px solid #E07828; border-radius:10px; padding:16px 20px; margin-bottom:24px;">
+    <div style="font-size:14px; font-weight:500; color:#A07828; margin-bottom:8px;">🛡️ 出發前・購買旅遊保險</div>
+    <div style="font-size:12px; color:var(--text); line-height:1.8;">
+      建議出發前在台灣購買旅遊平安險<br>
+      推薦比較：富邦、國泰、新光、台灣產險<br>
+      建議保障項目：<strong>海外緊急醫療・班機延誤・行李遺失・旅程取消</strong>
+    </div>
+  </div>
+
+  <!-- 捷運 -->
+  <div class="note-section">
+    <div class="note-title">🚇 捷運</div>
+    <div class="note-table">
+      <div class="note-row"><span class="note-label">ARL & MRT</span><span class="note-val">刷信用卡感應（VISA / Mastercard），含黃線粉紅線</span></div>
+      <div class="note-row"><span class="note-label">BTS</span><span class="note-val">必備兔子卡（Rabbit Card），現金儲值，不支援信用卡進站</span></div>
+      <div class="note-row"><span class="note-label">LINE Pay</span><span class="note-val">❌ 不建議使用，需身份認證，失敗率高</span></div>
+    </div>
+  </div>
+
+  <!-- 叫車 -->
+  <div class="note-section">
+    <div class="note-title">🚕 叫車 App（強烈推薦！）</div>
+    <div style="font-size:12px; color:var(--muted); margin-bottom:10px;">路邊攔計程車 90% 不跳錶，會亂喊價 → 用 App 最安全</div>
+    <div class="note-table">
+      <div class="note-row"><span class="note-label">Grab</span><span class="note-val">可綁信用卡，車輛多，素質好，價格固定</span></div>
+      <div class="note-row"><span class="note-label">Bolt</span><span class="note-val">比 Grab 便宜 20–30%，車輛較少，多數付現金</span></div>
+      <div class="note-row"><span class="note-label">建議</span><span class="note-val">兩個都在台灣先下載並註冊好，機場→市區（Asoke）約 ฿350–500（含過路費）</span></div>
+    </div>
+  </div>
+
+  <!-- 嘟嘟車 -->
+  <div class="note-section">
+    <div class="note-title">🛺 嘟嘟車（Tuk Tuk）</div>
+    <div class="note-table">
+      <div class="note-row"><span class="note-label">體驗</span><span class="note-val">好玩但務必殺價，5折起喊</span></div>
+      <div class="note-row"><span class="note-label">⚠️ 詐騙</span><span class="note-val">別信「大皇宮今天沒開」或「便宜珠寶店」，都是騙局！</span></div>
+    </div>
+  </div>
+
+  <!-- 昭披耶河 -->
+  <div class="note-section">
+    <div class="note-title">🚢 昭披耶河交通船</div>
+    <div class="note-table">
+      <div class="note-row"><span class="note-label">橘旗船</span><span class="note-val">單程 ฿16，班次最多最便宜 ⭐ 推薦</span></div>
+      <div class="note-row"><span class="note-label">藍旗觀光船</span><span class="note-val">沿途有英文導覽，適合觀光</span></div>
+      <div class="note-row"><span class="note-label">ICONSIAM</span><span class="note-val">有免費接駁船，從 Saphan Taksin 碼頭搭</span></div>
+      <div class="note-row"><span class="note-label">適合</span><span class="note-val">去大皇宮 / 鄭王廟 / ICONSIAM 搭船最快，完全不塞車</span></div>
+    </div>
+  </div>
+
+  <!-- 小費 -->
+  <div class="note-section" style="margin-bottom:0;">
+    <div class="note-title">💰 小費文化</div>
+    <div class="note-table">
+      <div class="note-row"><span class="note-label">按摩</span><span class="note-val">建議 ฿50–100</span></div>
+      <div class="note-row"><span class="note-label">飯店</span><span class="note-val">床頭 / 提行李 ฿20–50</span></div>
+      <div class="note-row"><span class="note-label">餐廳</span><span class="note-val">一般不用，高級餐廳有服務費也不需額外給</span></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══ PAGE: 行李清單 ══ -->
+<div class="page" id="page-packing">
+<div class="container">
+  <div class="header">
+    <span class="header-flag">🧳</span>
+    <h1>行李清單</h1>
+    <p class="header-sub">點擊打勾確認已帶</p>
+    <div class="header-line"></div>
+  </div>
+
+  <div style="text-align:right; margin-bottom:16px;">
+    <button onclick="resetPacking()" style="background:none; border:1px solid var(--card-border); border-radius:20px; padding:4px 14px; font-size:11px; color:var(--muted); cursor:pointer; font-family:inherit;">🔄 重置全部</button>
+  </div>
+
+  <!-- 重要證件 -->
+  <div class="pack-section">
+    <div class="pack-title">📋 重要證件</div>
+    <div class="pack-grid">
+      <div class="pack-item" onclick="toggleCheck('p1')"><span class="chk" id="chk-p1">☐</span> 護照</div>
+      <div class="pack-item" onclick="toggleCheck('p2')"><span class="chk" id="chk-p2">☐</span> 身分證</div>
+      <div class="pack-item" onclick="toggleCheck('p3')"><span class="chk" id="chk-p3">☐</span> 登機證 / 機票</div>
+      <div class="pack-item" onclick="toggleCheck('p4')"><span class="chk" id="chk-p4">☐</span> 保險卡</div>
+      <div class="pack-item" onclick="toggleCheck('p5')"><span class="chk" id="chk-p5">☐</span> 信用卡</div>
+      <div class="pack-item" onclick="toggleCheck('p6')"><span class="chk" id="chk-p6">☐</span> 國家外幣（建議帶部分台幣備換）</div>
+      <div class="pack-item" onclick="toggleCheck('p7')"><span class="chk" id="chk-p7">☐</span> 交通卡 / 票券</div>
+    </div>
+  </div>
+
+  <!-- 服裝 -->
+  <div class="pack-section">
+    <div class="pack-title">👗 服裝</div>
+    <div class="pack-grid">
+      <div class="pack-item" onclick="toggleCheck('c1')"><span class="chk" id="chk-c1">☐</span> 上衣</div>
+      <div class="pack-item" onclick="toggleCheck('c2')"><span class="chk" id="chk-c2">☐</span> 下身</div>
+      <div class="pack-item" onclick="toggleCheck('c3')"><span class="chk" id="chk-c3">☐</span> 內衣褲</div>
+      <div class="pack-item" onclick="toggleCheck('c4')"><span class="chk" id="chk-c4">☐</span> 睡衣</div>
+      <div class="pack-item" onclick="toggleCheck('c5')"><span class="chk" id="chk-c5">☐</span> 襪子</div>
+      <div class="pack-item" onclick="toggleCheck('c6')"><span class="chk" id="chk-c6">☐</span> 鞋子</div>
+      <div class="pack-item" onclick="toggleCheck('c7')"><span class="chk" id="chk-c7">☐</span> 外套</div>
+      <div class="pack-item" onclick="toggleCheck('c8')"><span class="chk" id="chk-c8">☐</span> 帽子</div>
+      <div class="pack-item" onclick="toggleCheck('c9')"><span class="chk" id="chk-c9">☐</span> 太陽眼鏡</div>
+      <div class="pack-item" onclick="toggleCheck('c10')"><span class="chk" id="chk-c10">☐</span> 飾品盒</div>
+      <div class="pack-item" onclick="toggleCheck('c11')"><span class="chk" id="chk-c11">☐</span> 毛巾</div>
+      <div class="pack-item" onclick="toggleCheck('c12')"><span class="chk" id="chk-c12">☐</span> 口罩</div>
+      <div class="pack-item" onclick="toggleCheck('c13')"><span class="chk" id="chk-c13">☐</span> 拖鞋</div>
+      <div class="pack-item" onclick="toggleCheck('c14')"><span class="chk" id="chk-c14">☐</span> 隨身背包 / 購物袋</div>
+    </div>
+  </div>
+
+  <!-- 3C -->
+  <div class="pack-section">
+    <div class="pack-title">📱 3C 產品</div>
+    <div class="pack-grid">
+      <div class="pack-item" onclick="toggleCheck('t1')"><span class="chk" id="chk-t1">☐</span> 手機、耳機</div>
+      <div class="pack-item" onclick="toggleCheck('t2')"><span class="chk" id="chk-t2">☐</span> SIM卡 / ESIM</div>
+      <div class="pack-item" onclick="toggleCheck('t3')"><span class="chk" id="chk-t3">☐</span> 充電器（手機、手錶、耳機）</div>
+      <div class="pack-item" onclick="toggleCheck('t4')"><span class="chk" id="chk-t4">☐</span> 相機</div>
+      <div class="pack-item" onclick="toggleCheck('t5')"><span class="chk" id="chk-t5">☐</span> 萬國插頭</div>
+      <div class="pack-item" onclick="toggleCheck('t6')"><span class="chk" id="chk-t6">☐</span> 記憶卡 / 讀卡器</div>
+      <div class="pack-item" onclick="toggleCheck('t7')"><span class="chk" id="chk-t7">☐</span> 自拍棒（管徑 &lt;1cm，高度 &lt;60cm）</div>
+      <div class="pack-item" onclick="toggleCheck('t8')"><span class="chk" id="chk-t8">☐</span> 行動電源（最多 2 顆，隨身行李！）</div>
+    </div>
+  </div>
+
+  <!-- 生活用品 -->
+  <div class="pack-section">
+    <div class="pack-title">🧴 生活用品</div>
+    <div class="pack-grid">
+      <div class="pack-item" onclick="toggleCheck('l1')"><span class="chk" id="chk-l1">☐</span> 沐浴、洗髮、護髮乳、洗面乳</div>
+      <div class="pack-item" onclick="toggleCheck('l2')"><span class="chk" id="chk-l2">☐</span> 牙刷、牙膏、牙線</div>
+      <div class="pack-item" onclick="toggleCheck('l3')"><span class="chk" id="chk-l3">☐</span> 藥物（感冒、過敏、止痛、胃藥）</div>
+      <div class="pack-item" onclick="toggleCheck('l4')"><span class="chk" id="chk-l4">☐</span> 衛生紙、濕紙巾、酒精濕紙巾</div>
+      <div class="pack-item" onclick="toggleCheck('l5')"><span class="chk" id="chk-l5">☐</span> 保養品（化妝水、乳液、精華液）</div>
+      <div class="pack-item" onclick="toggleCheck('l6')"><span class="chk" id="chk-l6">☐</span> 隱形眼鏡、眼藥水、清洗液</div>
+      <div class="pack-item" onclick="toggleCheck('l7')"><span class="chk" id="chk-l7">☐</span> 折疊雨傘</div>
+      <div class="pack-item" onclick="toggleCheck('l8')"><span class="chk" id="chk-l8">☐</span> 衛生棉 / 護墊</div>
+      <div class="pack-item" onclick="toggleCheck('l9')"><span class="chk" id="chk-l9">☐</span> 吹風機（托運）</div>
+      <div class="pack-item" onclick="toggleCheck('l10')"><span class="chk" id="chk-l10">☐</span> 鏡子、梳子</div>
+      <div class="pack-item" onclick="toggleCheck('l11')"><span class="chk" id="chk-l11">☐</span> 頭髮造型品</div>
+      <div class="pack-item" onclick="toggleCheck('l12')"><span class="chk" id="chk-l12">☐</span> 指甲剪（托運）</div>
+      <div class="pack-item" onclick="toggleCheck('l13')"><span class="chk" id="chk-l13">☐</span> 護手霜、香水</div>
+    </div>
+  </div>
+
+  <!-- 化妝品 -->
+  <div class="pack-section">
+    <div class="pack-title">💄 化妝品</div>
+    <div class="pack-grid">
+      <div class="pack-item" onclick="toggleCheck('m1')"><span class="chk" id="chk-m1">☐</span> 防曬（臉 / 身體）</div>
+      <div class="pack-item" onclick="toggleCheck('m2')"><span class="chk" id="chk-m2">☐</span> 妝前乳</div>
+      <div class="pack-item" onclick="toggleCheck('m3')"><span class="chk" id="chk-m3">☐</span> 粉底液 / 氣墊 / 粉餅</div>
+      <div class="pack-item" onclick="toggleCheck('m4')"><span class="chk" id="chk-m4">☐</span> 遮瑕膏</div>
+      <div class="pack-item" onclick="toggleCheck('m5')"><span class="chk" id="chk-m5">☐</span> 定妝蜜粉 / 噴霧</div>
+      <div class="pack-item" onclick="toggleCheck('m6')"><span class="chk" id="chk-m6">☐</span> 眉筆 / 眉粉</div>
+      <div class="pack-item" onclick="toggleCheck('m7')"><span class="chk" id="chk-m7">☐</span> 眼影盤</div>
+      <div class="pack-item" onclick="toggleCheck('m8')"><span class="chk" id="chk-m8">☐</span> 眼線筆</div>
+      <div class="pack-item" onclick="toggleCheck('m9')"><span class="chk" id="chk-m9">☐</span> 睫毛膏、睫毛夾</div>
+      <div class="pack-item" onclick="toggleCheck('m10')"><span class="chk" id="chk-m10">☐</span> 腮紅、修容 / 打亮</div>
+      <div class="pack-item" onclick="toggleCheck('m11')"><span class="chk" id="chk-m11">☐</span> 護唇膏、口紅 / 唇釉</div>
+      <div class="pack-item" onclick="toggleCheck('m12')"><span class="chk" id="chk-m12">☐</span> 美妝蛋、化妝刷</div>
+      <div class="pack-item" onclick="toggleCheck('m13')"><span class="chk" id="chk-m13">☐</span> 吸油面紙、卸妝棉、面膜</div>
+      <div class="pack-item" onclick="toggleCheck('m14')"><span class="chk" id="chk-m14">☐</span> 髮捲</div>
+    </div>
+  </div>
+
+  <!-- 行李規定 -->
+  <div class="pack-section" style="margin-bottom:0;">
+    <div class="pack-title">⚠️ 行李規定重點</div>
+    <div style="font-size:12px; color:var(--text); line-height:2; background:var(--bg); border-radius:8px; padding:14px 16px;">
+      <div>✈️ <strong>隨身</strong>：液體 100ml 以下，裝進透明夾鏈袋，每人一袋</div>
+      <div>🧳 <strong>托運</strong>：100ml 以上液體（單一 &lt;500ml，每人最多 2000ml）</div>
+      <div>🔋 <strong>行動電源</strong>：只能隨身，不可托運，最多 2 顆，需標示 Wh</div>
+      <div>📸 <strong>自拍棒</strong>：建議托運較保險</div>
+      <div style="margin-top:8px; color:#E07060;">❌ 禁止攜帶：彈藥・氣瓶・油漆・防風打火機・漂白劑・殺蟲劑・農藥・放射性物質・電瓶・磁性物質</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<style>
+  .note-section { background:var(--card); border:1px solid var(--card-border); border-radius:11px; padding:18px 20px; margin-bottom:14px; }
+  .note-title { font-family:'Playfair Display',serif; font-size:15px; color:var(--gold); font-style:italic; margin-bottom:12px; }
+  .note-table { display:flex; flex-direction:column; gap:8px; }
+  .note-row { display:flex; gap:12px; font-size:12px; padding-bottom:8px; border-bottom:1px solid #F5F0E8; }
+  .note-row:last-child { border-bottom:none; padding-bottom:0; }
+  .note-label { font-weight:500; color:var(--text); min-width:80px; flex-shrink:0; }
+  .note-val { color:var(--muted); line-height:1.6; flex:1; }
+
+  .pack-section { background:var(--card); border:1px solid var(--card-border); border-radius:11px; padding:18px 20px; margin-bottom:14px; }
+  .pack-title { font-family:'Playfair Display',serif; font-size:15px; color:var(--gold); font-style:italic; margin-bottom:12px; }
+  .pack-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:8px; }
+  .pack-item {
+    display:flex; align-items:center; gap:10px; font-size:12px; color:var(--text);
+    padding:8px 12px; border:1px solid var(--card-border); border-radius:8px;
+    cursor:pointer; transition:all 0.18s; background:var(--bg); user-select:none;
+  }
+  .pack-item:hover { border-color:rgba(160,120,40,0.4); background:#FDF8F0; }
+  .chk { font-size:14px; flex-shrink:0; transition:all 0.15s; }
+  .pack-item:has(.checked) { background:#F0FAF4; border-color:#B8DFC8; color:#2A6E4A; }
+</style>
+
+<script>
+  function resetPacking() {
+    if (!confirm('確定要重置所有勾選嗎？')) return;
+    localStorage.removeItem('bkk_packing');
+    document.querySelectorAll('.chk').forEach(el => {
+      el.classList.remove('checked');
+      el.textContent = '☐';
+    });
+    document.querySelectorAll('.pack-item').forEach(el => {
+      el.style.background = '';
+      el.style.borderColor = '';
+    });
+  }
 </script>
 </body>
 </html>

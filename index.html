@@ -651,11 +651,12 @@
 <div class="container">
   <div class="header">
     <span class="header-flag">💰</span>
-    <h1>旅費記錄</h1>
+    <h1>旅費分帳</h1>
     <p class="header-sub">Winnie &amp; 懷安</p>
     <div class="header-line"></div>
   </div>
 
+  <!-- 幣別切換 -->
   <div class="cur-bar">
     <span>顯示幣別</span>
     <button onclick="setCurrency('TWD')" id="btn-twd" class="cur-btn active">TWD 台幣</button>
@@ -663,57 +664,85 @@
     <span style="font-size:11px;">（1 TWD ≈ 1.09 THB）</span>
   </div>
 
-  <div class="expense-summary">
+  <!-- 總覽 -->
+  <div class="expense-summary" style="margin-bottom:20px;">
     <div class="esp-card" style="background:#F0FAF4; border-color:#B8DFC8;">
-      <div class="esp-label">Winnie 總計</div>
+      <div class="esp-label">Winnie 已墊</div>
       <div class="esp-num" id="total-winnie">—</div>
     </div>
     <div class="esp-card" style="background:#F0F4FA; border-color:#B8C8DF;">
-      <div class="esp-label">懷安 總計</div>
+      <div class="esp-label">懷安 已墊</div>
       <div class="esp-num" id="total-huaian">—</div>
     </div>
     <div class="esp-card" style="background:#FBF8F0; border-color:#E0D090;">
-      <div class="esp-label">兩人合計</div>
+      <div class="esp-label">總花費</div>
       <div class="esp-num" id="total-both" style="color:var(--gold);">—</div>
     </div>
   </div>
 
-  <div id="expense-list"></div>
-
-  <div class="expense-form">
-    <select id="exp-person" class="exp-input" style="width:86px; flex-shrink:0;">
-      <option value="winnie">Winnie</option>
-      <option value="huaian">懷安</option>
-      <option value="shared">兩人共</option>
-    </select>
-    <select id="exp-cat" class="exp-input" style="width:90px; flex-shrink:0;">
-      <option>✈️ 機票</option>
-      <option>🏨 住宿</option>
-      <option>🍽️ 餐飲</option>
-      <option>🛍️ 購物</option>
-      <option>🚕 交通</option>
-      <option>🎟️ 門票</option>
-      <option>💆 SPA</option>
-      <option>📦 其他</option>
-    </select>
-    <input id="exp-desc" class="exp-input" type="text" placeholder="說明（選填）" style="flex:1; min-width:80px;">
-    <div style="display:flex; gap:4px; flex-shrink:0;">
-      <select id="exp-currency" class="exp-input" style="width:62px;">
-        <option value="TWD">TWD</option>
-        <option value="THB">THB</option>
-      </select>
-      <input id="exp-amount" class="exp-input" type="number" placeholder="金額" style="width:88px;" min="0">
-    </div>
-    <button onclick="addExpense()" class="exp-btn">＋ 新增</button>
-  </div>
-  <p style="font-size:11px; color:var(--muted); text-align:right; margin-bottom: 32px;">資料儲存於瀏覽器，重新整理仍保留</p>
-
   <!-- 結算區塊 -->
-  <div class="settle-section">
+  <div class="settle-section" style="margin-bottom:20px;">
     <div class="settle-title">🧾 結算</div>
     <div id="settle-result"></div>
   </div>
 
+  <!-- 記錄列表 -->
+  <div style="font-family:'Playfair Display',serif; font-size:14px; color:var(--gold); font-style:italic; margin-bottom:12px;">📋 消費記錄</div>
+  <div id="expense-list" style="display:flex; flex-direction:column; gap:7px; margin-bottom:14px;"></div>
+
+  <!-- 新增表單 -->
+  <div style="font-family:'Playfair Display',serif; font-size:14px; color:var(--gold); font-style:italic; margin-bottom:10px;">＋ 新增消費</div>
+  <div class="expense-form">
+    <!-- 誰墊錢 -->
+    <div style="display:flex; flex-direction:column; gap:3px; flex-shrink:0;">
+      <label style="font-size:10px; color:var(--muted);">誰墊錢</label>
+      <select id="exp-payer" class="exp-input" style="width:80px;">
+        <option value="winnie">Winnie</option>
+        <option value="huaian">懷安</option>
+      </select>
+    </div>
+    <!-- 分攤方式 -->
+    <div style="display:flex; flex-direction:column; gap:3px; flex-shrink:0;">
+      <label style="font-size:10px; color:var(--muted);">分攤方式</label>
+      <select id="exp-split" class="exp-input" style="width:100px;">
+        <option value="half">兩人平分</option>
+        <option value="winnie">僅 Winnie</option>
+        <option value="huaian">僅懷安</option>
+      </select>
+    </div>
+    <!-- 類別 -->
+    <div style="display:flex; flex-direction:column; gap:3px; flex-shrink:0;">
+      <label style="font-size:10px; color:var(--muted);">類別</label>
+      <select id="exp-cat" class="exp-input" style="width:86px;">
+        <option>✈️ 機票</option>
+        <option>🏨 住宿</option>
+        <option>🍽️ 餐飲</option>
+        <option>🛍️ 購物</option>
+        <option>🚕 交通</option>
+        <option>🎟️ 門票</option>
+        <option>💆 SPA</option>
+        <option>📦 其他</option>
+      </select>
+    </div>
+    <!-- 說明 -->
+    <div style="display:flex; flex-direction:column; gap:3px; flex:1; min-width:80px;">
+      <label style="font-size:10px; color:var(--muted);">說明</label>
+      <input id="exp-desc" class="exp-input" type="text" placeholder="說明（選填）">
+    </div>
+    <!-- 金額 -->
+    <div style="display:flex; flex-direction:column; gap:3px; flex-shrink:0;">
+      <label style="font-size:10px; color:var(--muted);">金額</label>
+      <div style="display:flex; gap:4px;">
+        <select id="exp-currency" class="exp-input" style="width:62px;">
+          <option value="TWD">TWD</option>
+          <option value="THB">THB</option>
+        </select>
+        <input id="exp-amount" class="exp-input" type="number" placeholder="金額" style="width:86px;" min="0" onkeydown="if(event.key==='Enter') addExpense()">
+      </div>
+    </div>
+    <button onclick="addExpense()" class="exp-btn" style="align-self:flex-end;">＋ 新增</button>
+  </div>
+  <p style="font-size:11px; color:var(--muted); text-align:right; margin-top:6px;">資料儲存於瀏覽器，重新整理仍保留</p>
 </div>
 </div>
 
@@ -821,29 +850,39 @@
   let displayCurrency = 'TWD';
   let expenses = [];
 
-  try { expenses = JSON.parse(localStorage.getItem('bkk_v3') || '[]'); } catch(e) { expenses = []; }
+  try { expenses = JSON.parse(localStorage.getItem('bkk_v4') || '[]'); } catch(e) { expenses = []; }
 
   if (expenses.length === 0) {
+    // 預載機票：Winnie 墊錢，各自分攤自己那份
     expenses = [
-      { person: 'winnie', cat: '✈️ 機票', desc: '星宇航空 JX741/JX746', amount: 22209, currency: 'TWD', id: 1 },
-      { person: 'huaian', cat: '✈️ 機票', desc: '星宇航空 JX741/JX746', amount: 22209, currency: 'TWD', id: 2 },
-      { person: 'winnie', cat: '🎟️ 門票', desc: 'SANGARUN 泰服服裝', amount: 300, currency: 'THB', id: 3 },
-      { person: 'huaian', cat: '🎟️ 門票', desc: 'SANGARUN 泰服服裝', amount: 300, currency: 'THB', id: 4 },
-      { person: 'winnie', cat: '💆 SPA', desc: 'SANGARUN Premium Makeup', amount: 1600, currency: 'THB', id: 5 },
-      { person: 'huaian', cat: '💆 SPA', desc: 'SANGARUN Premium Makeup', amount: 1600, currency: 'THB', id: 6 },
-      { person: 'shared', cat: '🎟️ 門票', desc: 'SANGARUN 攝影師（兩人共）', amount: 2000, currency: 'THB', id: 7 }
+      { payer: 'winnie', split: 'winnie', cat: '✈️ 機票', desc: 'Winnie 星宇 JX741/JX746', amount: 22209, currency: 'TWD', id: 1 },
+      { payer: 'winnie', split: 'huaian', cat: '✈️ 機票', desc: '懷安 星宇 JX741/JX746（Winnie 代墊）', amount: 22209, currency: 'TWD', id: 2 },
+      { payer: 'winnie', split: 'winnie', cat: '🎟️ 門票', desc: 'SANGARUN 泰服服裝', amount: 300, currency: 'THB', id: 3 },
+      { payer: 'winnie', split: 'huaian', cat: '🎟️ 門票', desc: 'SANGARUN 泰服服裝（懷安份）', amount: 300, currency: 'THB', id: 4 },
+      { payer: 'winnie', split: 'winnie', cat: '💆 SPA', desc: 'SANGARUN Premium Makeup', amount: 1600, currency: 'THB', id: 5 },
+      { payer: 'winnie', split: 'huaian', cat: '💆 SPA', desc: 'SANGARUN Premium Makeup（懷安份）', amount: 1600, currency: 'THB', id: 6 },
+      { payer: 'winnie', split: 'half', cat: '🎟️ 門票', desc: 'SANGARUN 攝影師', amount: 2000, currency: 'THB', id: 7 },
     ];
     save();
   }
 
-  function save() { localStorage.setItem('bkk_v3', JSON.stringify(expenses)); }
+  function save() { localStorage.setItem('bkk_v4', JSON.stringify(expenses)); }
   function toTWD(a, c) { return c === 'THB' ? a / TWD_TO_THB : a; }
-  function fmtVal(v) {
-    const sym = displayCurrency === 'TWD' ? 'NT$' : '฿';
-    const val = displayCurrency === 'TWD' ? v : v * TWD_TO_THB;
-    return sym + Math.round(val).toLocaleString();
+  function conv(v) { return displayCurrency === 'TWD' ? v : v * TWD_TO_THB; }
+  function sym() { return displayCurrency === 'TWD' ? 'NT$' : '฿'; }
+  function fmtV(v) { return sym() + Math.round(conv(v)).toLocaleString(); }
+  function fmtE(e) { return fmtV(toTWD(e.amount, e.currency)); }
+
+  const pMeta = {
+    winnie: { label: 'Winnie', bg: '#E6F5EC', color: '#2A6E4A' },
+    huaian: { label: '懷安',   bg: '#E6EDF5', color: '#2A3F6E' },
+  };
+  const splitLabel = { half: '兩人平分', winnie: '僅 Winnie', huaian: '僅懷安' };
+
+  function personTag(p) {
+    const m = pMeta[p] || { label: p, bg: '#eee', color: '#666' };
+    return `<span style="background:${m.bg};color:${m.color};font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;flex-shrink:0;white-space:nowrap;">${m.label}</span>`;
   }
-  function fmt(a, c) { return fmtVal(toTWD(a, c)); }
 
   function setCurrency(cur) {
     displayCurrency = cur;
@@ -853,13 +892,14 @@
   }
 
   function addExpense() {
-    const person = document.getElementById('exp-person').value;
-    const cat = document.getElementById('exp-cat').value;
-    const desc = document.getElementById('exp-desc').value.trim();
-    const amount = parseFloat(document.getElementById('exp-amount').value);
+    const payer    = document.getElementById('exp-payer').value;
+    const split    = document.getElementById('exp-split').value;
+    const cat      = document.getElementById('exp-cat').value;
+    const desc     = document.getElementById('exp-desc').value.trim();
+    const amount   = parseFloat(document.getElementById('exp-amount').value);
     const currency = document.getElementById('exp-currency').value;
     if (!amount || isNaN(amount) || amount <= 0) return;
-    expenses.push({ person, cat, desc, amount, currency, id: Date.now() });
+    expenses.push({ payer, split, cat, desc, amount, currency, id: Date.now() });
     save();
     document.getElementById('exp-amount').value = '';
     document.getElementById('exp-desc').value = '';
@@ -871,92 +911,97 @@
     save(); render();
   }
 
-  function personTag(p) {
-    const m = { winnie:['Winnie','person-winnie'], huaian:['懷安','person-huaian'], shared:['兩人共','person-shared'] };
-    const [l, c] = m[p] || ['?',''];
-    return `<span class="exp-row-person ${c}">${l}</span>`;
-  }
+  function calcBalance() {
+    // balance[person] = 該人「應付」- 「已墊」的金額（正 = 欠錢，負 = 被欠）
+    let paid = { winnie: 0, huaian: 0 };  // 實際墊了多少
+    let owe  = { winnie: 0, huaian: 0 };  // 應該負擔多少
 
-  function calcTotal(person) {
-    return expenses.reduce((s, e) => e.person === person ? s + toTWD(e.amount, e.currency) : s, 0);
-  }
+    expenses.forEach(e => {
+      const amt = toTWD(e.amount, e.currency);
+      paid[e.payer] += amt;
+      if (e.split === 'half') {
+        owe.winnie += amt / 2;
+        owe.huaian += amt / 2;
+      } else {
+        owe[e.split] += amt;
+      }
+    });
 
-  function renderSettle(w, h, s) {
-    // w = Winnie 已付, h = 懷安 已付, s = 兩人共已付
-    // 兩人共的費用各分一半
-    const total = w + h + s;
-    const fairShare = total / 2;
-    // Winnie 實際負擔 = 自己付的 + 共同的一半
-    const wOwes = fairShare;        // 應付
-    const wPaid = w + s / 2;        // 實際付出（含共同一半）
-    const hOwes = fairShare;
-    const hPaid = h + s / 2;
-
-    const diff = wPaid - hPaid;     // 正值 = Winnie 多付，懷安要還 Winnie
-    const el = document.getElementById('settle-result');
-
-    const breakdownHTML = `
-      <div class="settle-breakdown">
-        <div class="settle-breakdown-item">
-          <div class="settle-breakdown-label">Winnie 實付</div>
-          <div class="settle-breakdown-val">${fmtVal(w)}</div>
-        </div>
-        <div class="settle-breakdown-item">
-          <div class="settle-breakdown-label">懷安 實付</div>
-          <div class="settle-breakdown-val">${fmtVal(h)}</div>
-        </div>
-        <div class="settle-breakdown-item">
-          <div class="settle-breakdown-label">兩人共付（各半）</div>
-          <div class="settle-breakdown-val">${fmtVal(s)} → 各 ${fmtVal(s/2)}</div>
-        </div>
-        <div class="settle-breakdown-item">
-          <div class="settle-breakdown-label">兩人應各付</div>
-          <div class="settle-breakdown-val">${fmtVal(fairShare)}</div>
-        </div>
-      </div>`;
-
-    if (Math.abs(diff) < 1) {
-      el.innerHTML = `<div class="settle-equal">✅ 兩人費用完全平衡，不需要轉帳！</div>${breakdownHTML}`;
-      return;
-    }
-
-    const payer   = diff > 0 ? '懷安' : 'Winnie';
-    const payerCls= diff > 0 ? 'person-huaian' : 'person-winnie';
-    const receiver= diff > 0 ? 'Winnie' : '懷安';
-    const recCls  = diff > 0 ? 'person-winnie' : 'person-huaian';
-    const amt     = fmtVal(Math.abs(diff));
-
-    el.innerHTML = `
-      <div class="settle-row">
-        <span class="settle-payer ${payerCls}">${payer}</span>
-        <div class="settle-arrow">
-          <div class="settle-arrow-line"></div>
-        </div>
-        <span class="settle-amount">${amt}</span>
-        <span class="settle-receiver ${recCls}">${receiver}</span>
-      </div>
-      ${breakdownHTML}`;
+    // net[p] = 墊出 - 應付 → 正 = 別人欠我，負 = 我欠別人
+    return {
+      paid,
+      owe,
+      total: paid.winnie + paid.huaian,
+      net: {
+        winnie: paid.winnie - owe.winnie,
+        huaian: paid.huaian - owe.huaian,
+      }
+    };
   }
 
   function render() {
-    const sym = displayCurrency === 'TWD' ? 'NT$' : '฿';
-    const conv = v => displayCurrency === 'TWD' ? v : v * TWD_TO_THB;
     const list = document.getElementById('expense-list');
     list.innerHTML = expenses.length === 0
-      ? '<p style="text-align:center;color:var(--muted);font-size:12px;padding:24px 0;">還沒有任何記錄</p>'
+      ? '<p style="text-align:center;color:var(--muted);font-size:12px;padding:20px 0;">還沒有任何記錄</p>'
       : expenses.map(e => `
-        <div class="exp-row">
-          ${personTag(e.person)}
-          <span class="exp-row-cat">${e.cat}</span>
-          <span class="exp-row-desc">${e.desc || '—'}</span>
-          <span class="exp-row-amt">${fmt(e.amount, e.currency)}</span>
-          <button class="exp-del" onclick="deleteExpense(${e.id})">✕</button>
+        <div style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--card-border);border-radius:8px;padding:9px 12px;font-size:12px;flex-wrap:wrap;">
+          <span style="font-size:10px;color:var(--muted);flex-shrink:0;">墊：</span>
+          ${personTag(e.payer)}
+          <span style="font-size:10px;color:var(--muted);flex-shrink:0;">分：</span>
+          <span style="font-size:10px;background:#FEF3E2;border:1px solid #F0C070;color:#A07828;padding:2px 7px;border-radius:20px;flex-shrink:0;">${splitLabel[e.split]}</span>
+          <span style="color:var(--muted);flex-shrink:0;">${e.cat}</span>
+          <span style="color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e.desc || '—'}</span>
+          <span style="font-family:monospace;font-weight:600;flex-shrink:0;">${fmtE(e)}</span>
+          <button onclick="deleteExpense(${e.id})" style="background:none;border:none;color:#CCC;cursor:pointer;font-size:13px;flex-shrink:0;padding:0;"
+            onmouseover="this.style.color='#E07060'" onmouseout="this.style.color='#CCC'">✕</button>
         </div>`).join('');
-    const w = calcTotal('winnie'), h = calcTotal('huaian'), s = calcTotal('shared');
-    document.getElementById('total-winnie').textContent = sym + Math.round(conv(w)).toLocaleString();
-    document.getElementById('total-huaian').textContent = sym + Math.round(conv(h)).toLocaleString();
-    document.getElementById('total-both').textContent = sym + Math.round(conv(w + h + s)).toLocaleString();
-    renderSettle(w, h, s);
+
+    const b = calcBalance();
+
+    // 總覽
+    document.getElementById('total-winnie').textContent = fmtV(b.paid.winnie);
+    document.getElementById('total-huaian').textContent = fmtV(b.paid.huaian);
+    document.getElementById('total-both').textContent   = fmtV(b.total);
+
+    // 結算
+    const settle = document.getElementById('settle-result');
+    const diff = b.net.winnie; // 正 = Winnie 多墊，懷安要還 Winnie；負 = 懷安多墊
+
+    const breakdownHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;">
+        ${[
+          ['Winnie 實際墊出', fmtV(b.paid.winnie)],
+          ['懷安 實際墊出',   fmtV(b.paid.huaian)],
+          ['Winnie 應付',     fmtV(b.owe.winnie)],
+          ['懷安 應付',       fmtV(b.owe.huaian)],
+        ].map(([l, v]) => `
+          <div style="background:var(--bg);border:1px solid var(--card-border);border-radius:8px;padding:9px 13px;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:3px;">${l}</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text);">${v}</div>
+          </div>`).join('')}
+      </div>`;
+
+    if (Math.abs(diff) < 1) {
+      settle.innerHTML = `<div style="text-align:center;padding:14px;background:#F0FAF4;border:1px solid #B8DFC8;border-radius:8px;font-size:13px;color:#2A6E4A;font-weight:500;">✅ 兩人費用完全平衡，不需要轉帳！</div>${breakdownHTML}`;
+    } else {
+      const payer    = diff > 0 ? '懷安' : 'Winnie';
+      const payerM   = diff > 0 ? pMeta.huaian : pMeta.winnie;
+      const receiver = diff > 0 ? 'Winnie' : '懷安';
+      const recM     = diff > 0 ? pMeta.winnie : pMeta.huaian;
+      const amt      = fmtV(Math.abs(diff));
+
+      settle.innerHTML = `
+        <div style="background:#fff;border:1px solid var(--card-border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:4px;">
+          <span style="background:${payerM.bg};color:${payerM.color};font-size:13px;padding:5px 14px;border-radius:20px;font-weight:500;">${payer}</span>
+          <div style="flex:1;min-width:40px;height:1px;background:linear-gradient(90deg,var(--card-border),var(--gold),var(--card-border));position:relative;">
+            <span style="position:absolute;right:-5px;top:50%;transform:translateY(-50%);font-size:9px;color:var(--gold);">▶</span>
+          </div>
+          <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--text);flex-shrink:0;">${amt}</div>
+          <div style="flex:1;min-width:40px;height:1px;background:linear-gradient(90deg,var(--card-border),var(--gold),var(--card-border));"></div>
+          <span style="background:${recM.bg};color:${recM.color};font-size:13px;padding:5px 14px;border-radius:20px;font-weight:500;">${receiver}</span>
+        </div>
+        ${breakdownHTML}`;
+    }
   }
 
   render();
